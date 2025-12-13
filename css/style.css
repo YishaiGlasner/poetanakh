@@ -1,0 +1,36 @@
+body {
+  font-family: Arial, sans-serif;
+  direction: rtl;
+  margin: 2rem;
+  line-height: 1.5;
+}
+label, input, button {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+input {
+  width: 300px;
+  padding: 0.3rem;
+  font-size: 1.2rem;
+}
+button {
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+#results {
+  margin-top: 2rem;
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
+}
+.verse {
+  margin-bottom: 0.5rem;
+}
+footer {
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  color: #555;
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
+}

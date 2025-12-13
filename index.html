@@ -1,0 +1,70 @@
+<head>
+  <meta charset="UTF-8">
+  <title>חפש משקלים בתנ"ך</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<h1>חפש משקלים בתנ"ך</h1>
+
+<label for="query">הכנס משקל. יש להשתמש בתווים -◡ בלבד</label>
+<input type="text" id="query" placeholder="-◡-◡">
+<button id="searchBtn">חפש</button>
+
+<div id="results">תוצאות יופיעו כאן</div>
+
+<footer>התנ"ך בגרסת מקרא על פי המסורה נלקח מספריא</footer>
+
+<script>
+  // Keep only allowed characters in input
+  const input = document.getElementById('query');
+  input.addEventListener('input', () => {
+    input.value = input.value.replace(/[^-◡]/g, '');
+  });
+
+  const resultsBox = document.getElementById('results');
+  const searchBtn = document.getElementById('searchBtn');
+
+  // Initialize Web Worker
+  const worker = new Worker('searchWorker.js');
+
+  worker.onmessage = (e) => {
+    if (e.data.partialResults) {
+      updateResults(e.data.partialResults);
+    }
+    if (e.data.results) {
+      updateResults(e.data.results, true);
+    }
+  };
+
+  searchBtn.addEventListener('click', () => {
+    const query = input.value.trim();
+    if (!query) {
+      alert('אנא הכנס משקל');
+      return;
+    }
+    resultsBox.textContent = 'מחפש...';
+
+    // Send query to worker
+    worker.postMessage({ query });
+  });
+
+  function updateResults(results, done=false) {
+    if (!results.length && done) {
+      resultsBox.textContent = 'אין תוצאות';
+      return;
+    }
+
+    resultsBox.innerHTML = '';
+    for (const { ref, text } of results) {
+      const div = document.createElement('div');
+      div.className = 'verse';
+      div.textContent = `${ref}: ${text}`;
+      resultsBox.appendChild(div);
+    }
+  }
+</script>
+
+</body>
+</html>
