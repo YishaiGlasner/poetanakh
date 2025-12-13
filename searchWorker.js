@@ -59,7 +59,7 @@ self.onmessage = async (e) => {
 
     async function* iterVerse() {
         for (let i = 0; i < 39; i++) {
-            const res = await fetch(`/data/book${i}.json`);
+            const res = await fetch(`data/book${i}.json`);
             const data = await res.json();
             for (const title of Object.keys(data)) { // one key
                 const book = data[title];
