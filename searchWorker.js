@@ -14,7 +14,7 @@ self.onmessage = async (e) => {
         let vowels = word.replace(/[\u05C1\u05C2]/g, ''); // right and left shin
         vowels = vowels.replace(/[א-ת]/g, "@");
         vowels = vowels.replace(/^@\u05BC/, "@"); // remove starting dagesh
-        vowels = vowels.replace(/@\u05B0+$/, ''); // shva or two in the end of a word
+        vowels = vowels.replace(/(?:@\u05BC?\u05B0\u05BC?)+$/, ''); // shva or two in the end of a word
         vowels = vowels.replace(/@\u05B0\u05BC|@\u05BC\u05B0/g, yated); //shva with dagesh
 
         // Starting adding-u or shva
