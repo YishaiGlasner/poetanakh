@@ -21,7 +21,7 @@ self.onmessage = async (e) => {
 
         // Starting adding-u or shva. adding-u is found by the original word
         let weights = '';
-        if (word.match(/^ו.ְ/)) {
+        if (word.match(/^וּ.ְ/)) {
             weights = tnua;
             vowels = vowels.slice(4);
         } else if (word.match(/^וּ/)) {
