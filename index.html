@@ -26,17 +26,7 @@
   const resultsBox = document.getElementById('results');
   const searchBtn = document.getElementById('searchBtn');
 
-  // Initialize Web Worker
-  const worker = new Worker('searchWorker.js?v=1.0.3');
-
-  worker.onmessage = (e) => {
-    if (e.data.partialResults) {
-      updateResults(e.data.partialResults);
-    }
-    if (e.data.results) {
-      updateResults(e.data.results, true);
-    }
-  };
+  let worker = null;
 
   searchBtn.addEventListener('click', () => {
     const query = input.value.trim();
@@ -44,7 +34,25 @@
       alert('אנא הכנס משקל');
       return;
     }
+
     resultsBox.textContent = 'מחפש...';
+
+
+    // Terminate previous worker if it exists
+    if (worker) {
+      worker.terminate();
+    }
+    worker = new Worker('searchWorker.js?v=1.0.3');
+
+
+    worker.onmessage = (e) => {
+      if (e.data.partialResults) {
+        updateResults(e.data.partialResults);
+      }
+      if (e.data.results) {
+        updateResults(e.data.results, true);
+      }
+    };
 
     // Send query to worker
     worker.postMessage({ query });
