@@ -27,7 +27,7 @@
   const searchBtn = document.getElementById('searchBtn');
 
   // Initialize Web Worker
-  const worker = new Worker('searchWorker.js?v=1.0.2');
+  const worker = new Worker('searchWorker.js?v=1.0.3');
 
   worker.onmessage = (e) => {
     if (e.data.partialResults) {
