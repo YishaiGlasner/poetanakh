@@ -10,14 +10,16 @@ self.onmessage = async (e) => {
     const yated = '◡';
     const tnua = '-';
 
+
     function convertToWeights(word) {
-        let vowels = word.replace(/[\u05C1\u05C2]/g, ''); // right and left shin
+        let vowels = word.replace(/[\u05C1\u05C2]/g, ''); // remove right and left shin
+        vowels = vowels. replace(/וּ([א-ת]|$)/g, 'וS$1'); // replace shuruk
         vowels = vowels.replace(/[א-ת]/g, "@");
-        vowels = vowels.replace(/^@\u05BC/, "@"); // remove starting dagesh
+        vowels = vowels.replace(/^@\u05BC/, "@"); // remove starting dagesh for not handling starting dagesh with shva. starting dagesh will be handled after
         vowels = vowels.replace(/(?:@\u05BC?\u05B0\u05BC?)+$/, ''); // shva or two in the end of a word
         vowels = vowels.replace(/@\u05B0\u05BC|@\u05BC\u05B0/g, yated); //shva with dagesh
 
-        // Starting adding-u or shva
+        // Starting adding-u or shva. adding-u is found by the original word
         let weights = '';
         if (word.match(/^ו.ְ/)) {
             weights = tnua;
@@ -26,7 +28,6 @@ self.onmessage = async (e) => {
             weights = yated;
             vowels = vowels.slice(2);
         } else {
-            vowels = vowels.replace(/[\u05BC]/g, ''); // remove dagesh
             if (vowels.match(/^.\u05B0/)) {
                 weights = yated;
                 vowels = vowels.slice(2);
