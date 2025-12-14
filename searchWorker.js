@@ -16,7 +16,7 @@ self.onmessage = async (e) => {
         vowels = vowels. replace(/וּ([א-ת]|$)/g, 'וS$1'); // replace shuruk
         vowels = vowels.replace(/[א-ת]/g, "@");
         vowels = vowels.replace(/^@\u05BC/, "@"); // remove starting dagesh for not handling starting dagesh with shva. starting dagesh will be handled after
-        vowels = vowels.replace(/(?:@\u05BC?\u05B0\u05BC?)+$/, ''); // shva or two in the end of a word
+        vowels = vowels.replace(/(?:@\u05BC?\u05B0\u05BC?)+א?$/, ''); // shva or two in the end of a word. optional aleph for ארתחששתא
         vowels = vowels.replace(/@\u05B0\u05BC|@\u05BC\u05B0/g, yated); //shva with dagesh
 
         // Starting adding-u or shva. adding-u is found by the original word
