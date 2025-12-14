@@ -12,8 +12,8 @@ self.onmessage = async (e) => {
 
 
     function convertToWeights(word) {
-        word= word.replace(/[\u05C1\u05C2]/g, ''); // remove right and left shin
-        let vowels = vowels. replace(/וּ([א-ת]|$)/g, 'וS$1'); // replace shuruk
+        word = word.replace(/[\u05C1\u05C2]/g, ''); // remove right and left shin
+        let vowels = word. replace(/וּ([א-ת]|$)/g, 'וS$1'); // replace shuruk
         vowels = vowels.replace(/[א-ת]/g, "@");
         vowels = vowels.replace(/^@\u05BC/, "@"); // remove starting dagesh for not handling starting dagesh with shva. starting dagesh will be handled after
         vowels = vowels.replace(/(?:@\u05BC?\u05B0\u05BC?)+@?$/, ''); // shva or two in the end of a word. optional final silent letter for ארתחששתא
