@@ -17,16 +17,20 @@
 <footer>התנ"ך בגרסת מקרא על פי המסורה נלקח מספריא</footer>
 
 <script>
-  // Keep only allowed characters in input
   const input = document.getElementById('query');
+  const resultsBox = document.getElementById('results');
+  const searchBtn = document.getElementById('searchBtn');
+  let worker = null;
+
+  // Keep only allowed characters in input
   input.addEventListener('input', () => {
     input.value = input.value.replace(/[^-◡]/g, '');
   });
 
-  const resultsBox = document.getElementById('results');
-  const searchBtn = document.getElementById('searchBtn');
-
-  let worker = null;
+  // Trigger search on Enter
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') searchBtn.click();
+  });
 
   searchBtn.addEventListener('click', () => {
     const query = input.value.trim();
