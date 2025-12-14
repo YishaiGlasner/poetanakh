@@ -46,7 +46,7 @@
     if (worker) {
       worker.terminate();
     }
-    worker = new Worker('searchWorker.js?v=1.0.3');
+    worker = new Worker('searchWorker.js?v=1.0.4');
 
 
     worker.onmessage = (e) => {
